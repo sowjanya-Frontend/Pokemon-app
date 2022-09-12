@@ -46,15 +46,29 @@ function PokemonDetails() {
                     <div className="pokemonName_Details">
                         {pokemonDetail?.name}
                     </div>
-                    <h3>characteristics</h3>
-                    {
-                        pokemonDetail.stats?.map((item, index) => (
-                            <div>
-                                <b>{item.stat?.name}</b> : <span>{item.base_stat}</span>
-                            </div>
+                    <div className="desc-main-div">
+                        <div className="characteristics">
+                            <h3>Characteristics</h3>
+                            {
+                                pokemonDetail.stats?.map((item, index) => (
+                                    <div>
+                                        <span>{item.stat?.name}</span> : <span>{item.base_stat}</span>
+                                    </div>
 
-                        ))
-                    }
+                                ))
+                            }
+                        </div>
+                        <div className="abilities">
+                            <h3>Abilities</h3>
+                            {
+                                pokemonDetail.abilities?.map((item, index) => (
+                                    <div>
+                                        <span>{item.ability?.name}</span>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
                     <button className="load-more cursor-pointer" onClick={() => navigate("/")}>
                         Go Back
                     </button>

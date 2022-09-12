@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { appSetting } from '../../Config/Config';
 import PokemonCardLayout from "./PokemonCardLayout";
-import Pagination from '../Pagination/Pagination';
+import "antd/dist/antd.css";
+import { Pagination } from 'antd';
+
 import './Pokemon.css';
 
 /**
@@ -65,11 +67,17 @@ function LoadPokemon() {
         });
     }
 
-    //Pagination related react hooks with current value in currentPage and state changing function setCurrentPage
-    const [currentPage, setCurrentPage] = useState(1);
-
     //Pagination cards per page dropdown related react hooks with current value in cardsPerPage and state changing function setcardsPerPage
-    const [cardsPerPage, setcardsPerPage] = useState(5);
+    const [total, setTotal] = useState("");
+    const [page, setPage] = useState(1);
+
+    //Pagination related react hooks with current value in currentPage and state changing function setCurrentPage
+    const [postPerPage, setPostPerPage] = useState(5);
+
+    //Pagination related calculations
+    const lastPostIndex = page + postPerPage;
+    const firstPostIndex = lastPostIndex - postPerPage;
+    const currentPosts = allPokemons.slice(firstPostIndex, lastPostIndex);
 
     //useRef used to does not cause a re-render when updated
     const shouldCall = useRef(true);
@@ -114,6 +122,7 @@ function LoadPokemon() {
         const res = await fetch(loadPoke);
         const data = await res.json();
         setLoadPoke(data.next);
+        setTotal((currentList) => [...currentList, data.next.length]);
         function createPokemonObject(result) {
             result.forEach(async (pokemon) => {
                 //To fetch the details of the pokemon by the name
@@ -128,6 +137,11 @@ function LoadPokemon() {
         createPokemonObject(data.results);
     };
 
+    const onShowSizeChange = (current, pageSize) => {
+        setPostPerPage(pageSize);
+    }
+
+
     //The useEffect Hook allows to perform get all pokemons list.
     useEffect(() => {
         if (shouldCall.current) {
@@ -135,11 +149,6 @@ function LoadPokemon() {
             getAllPokemons();
         }
     }, []);
-
-    //Pagination related calculations
-    const lastPostIndex = currentPage * cardsPerPage;
-    const firstPostIndex = lastPostIndex - cardsPerPage;
-    const currentPageData = allPokemons.slice(firstPostIndex, lastPostIndex);
 
     return (
         <div className="app-container">
@@ -154,6 +163,7 @@ function LoadPokemon() {
                             placeholder="Search" />
                     </div>
                     <div className="filter-pokemon">
+                        <span className="sortby">Sort by</span>
                         <select
                             onChange={(e) => sortItems(e.target.value)}
                             className="custom-select"
@@ -167,7 +177,7 @@ function LoadPokemon() {
                 </div>
                 <div className="all-container">
                     {
-                        search(currentPageData).map((pokemon, index) => (
+                        search(currentPosts).map((pokemon, index) => (
                             //pokemon card layout component
                             <PokemonCardLayout
                                 id={pokemon.id}
@@ -184,15 +194,26 @@ function LoadPokemon() {
                     }
                 </div>
                 <Pagination
-                    totalPosts={allPokemons.length}
-                    postsPerPage={cardsPerPage}
-                    setCurrentPage={setCurrentPage}
-                    currentPage={currentPage}
+                    pageSize={postPerPage}
+                    total={total}
+                    current={page}
+                    onChange={(value) => setPage(value)}
+                    pageSizeOptions={[5, 10, 20, 50]}
+                    onShowSizeChange={onShowSizeChange}
+                    showSizeChanger
+                    itemRender={(page, type) => {
+                        if (type === "next") {
+                            return <a>NEXT</a>;
+                        }
+                        else if (type === "prev") {
+                            return <a>PREV</a>;
+                        }
+                        if (type === "page") {
+                            return <a>{page}</a>;
+                        }
+                    }
+                    }
                 />
-                <button className="load-more cursor-pointer"
-                    onClick={() => getAllPokemons()}>
-                    More Pokemons
-                </button>
             </div>
         </div >
     );
