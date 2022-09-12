@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { appSetting } from '../../Config/Config';
 
@@ -35,7 +35,7 @@ function PokemonDetails() {
     }, []);
 
     return (
-        (pokemonDetail != null && pokemonDetail.id != undefined) ?
+        (pokemonDetail !== null && pokemonDetail.id !== undefined) ?
             <div className="desc">
                 <div className="pokemon-img-container card-container`${pokemonDetail?.types.type.name}`">
                     <div id={pokemonDetail.id}>

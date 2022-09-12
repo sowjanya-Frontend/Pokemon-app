@@ -15,7 +15,6 @@ import './Pokemon.css';
 */
 
 function LoadPokemon() {
-
     //React hook to handle allpokemon data to hold the current state with allPokemons and setAllPokemons funation to update the state
     const [allPokemons, setAllPokemons] = useState([]);
 
@@ -46,7 +45,6 @@ function LoadPokemon() {
         return items.filter((item) => {
             if (item.hasOwnProperty(filterParam)) {
                 return searchParam.some((newItem) => {
-                    console.log(item[newItem]);
                     return (
                         item[newItem]
                             .toString()
@@ -152,13 +150,13 @@ function LoadPokemon() {
 
     return (
         <div className="app-container">
-            <h1>Pokemon Layout</h1>
+            <h1 id="pokemon-heading">Pokemon Layout</h1>
             <div className="pokemon-container">
-                <div class="pokemon-toolbar">
-                    <div class="form-group pokemon-search">
-                        <span class="fa fa-search form-control-feedback">
+                <div className="pokemon-toolbar">
+                    <div className="form-group pokemon-search">
+                        <span className="fa fa-search form-control-feedback">
                         </span>
-                        <input type="text" class="form-control"
+                        <input type="text" className="form-control"
                             onChange={(e) => searchItems(e.target.value)}
                             placeholder="Search" />
                     </div>
@@ -169,7 +167,7 @@ function LoadPokemon() {
                             className="custom-select"
                             aria-label="Filter Pokemons by properties">
                             {filterDrpItems.map((item, index) => (
-                                <option id={index} value={item.key}>{item.value}</option>
+                                <option key={index} value={item.key}>{item.value}</option>
                             ))}
                         </select>
                         <span className="focus"></span>
