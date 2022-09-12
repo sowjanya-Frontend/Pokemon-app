@@ -48,16 +48,16 @@
 }
 
 .app-container {
-    display: flex;
+    display: block;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    min-height: 100%;
     padding: 0rem 1rem 3rem 1rem;
 }
 
 .app-container h1 {
-    width: 0ch;
+    width: 100%;
     color: rgb(16, 166, 236);
     overflow: hidden;
     white-space: nowrap;
@@ -76,7 +76,7 @@
 }
 
 .pokemon-container {
-    display: flex;
+    display: contents;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -86,7 +86,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
 }
 
 .card-container {
@@ -114,6 +114,7 @@ h3 {
 
 .card-container small {
     text-transform: capitalize;
+    padding: 1px;
 }
 
 .pokemon-wrapper {
@@ -136,4 +137,100 @@ h3 {
     cursor: pointer;
 }
 
+.desc {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.pokemon-img-container,
+.pokemon-desc-container {
+    top: 10%;
+    position: relative;
+    width: 30%;
+    left: 35%;
+    box-shadow: 0 3px 15px rgb(3 66 90 / 77%);
+    border-radius: 10px;
+}
+
+.pokemon-img-container div {
+    padding: 5%;
+    display: contents;
+}
+
+.pokemon-img-container img {
+    width: 60%;
+}
+
+
+.pokemon-desc-container {
+    padding-top: 2%;
+    height: 40%;
+}
+
+.pokemon-desc-container .pokemonName_Details {
+    background: #d42f0b;
+    width: 50%;
+    margin-left: 25%;
+    border-radius: 12px;
+    padding: 1%;
+    color: white;
+}
+
+.pokemon-img-container .card-container {
+    width: 100%;
+    height: 100%;
+}
+
+.pokemon-img-container .card-container img {
+    width: 50%;
+    height: 75%;
+}
+
+input {
+    font-size: 16px;
+    font-size: max(16px, 1em);
+    font-family: inherit;
+    padding: 0.25em 0.5em;
+    background-color: #FFFFFF;
+    border: 2px solid #2d2d2e82;
+    border-radius: 4px;
+}
+
+.pokemon-search {
+    width: 50%;
+    text-align: start;
+    padding-left: 3%;
+    height: 100%;
+}
+
+.filter-pokemon {
+    width: 50%;
+    text-align: end;
+    padding-right: 4%;
+}
+
+.filter-pokemon .custom-select {
+    height: 100%;
+    width: 15%;
+}
+
+.pokemon-toolbar {
+    width: 100%;
+    height: 1%;
+    display: flex;
+}
+
+.explore-pokemon {
+    background-color: #04040480;
+    border-radius: 6px;
+    border: 1px solid #c6c6c6;
+    color: #FFFFFF;
+    min-width: 15%;
+    margin-top: 1rem;
+    padding: 5px;
+    cursor: pointer;
+}
+
+/*Note to me : Need to implement --input-border like this variables for all teh font sizes and colors*/
 /*Pokemon Css end here written by Sowjanya Kandra*/
